@@ -10,11 +10,27 @@
 module.exports = {
   siteMetadata: {
     title: "Rebecca Monroy - Java Developer Portfolio",
-    description: "Portfolio of Rebecca Monroy, an Oracle Certified Java SE 17 Professional and Salesforce Developer.",
+    description: "Portfolio of Rebecca Monroy, an Oracle Certified Java SE 17 Professional and Salesforce Developer with expertise in Spring Boot, AWS, and microservices.",
     author: "Rebecca Monroy",
+    keywords: "Java developer, Salesforce developer, Spring Boot, portfolio, software engineer",
   },
   plugins: [
+    "gatsby-plugin-offline",
+     /* other plugins */
     "gatsby-plugin-react-helmet",
+    {
+      resolve: "gatsby-plugin-google-analytics",
+      options: {
+        trackingId: "G-WPPLG6N1S3",
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        name: "assets",
+        path: `${__dirname}/src/assets`,
+      },
+    },
     {
       resolve: "gatsby-plugin-manifest",
       options: {
@@ -24,7 +40,7 @@ module.exports = {
         background_color: "#1a3c34",
         theme_color: "#a3d9c9",
         display: "standalone",
-        icon: "src/images/icon.png", // Add an icon file here if you have one
+        icon: "src/images/icon.png",
       },
     },
   ],

@@ -1,51 +1,48 @@
-/**
- * Layout component that queries for data
- * with Gatsby's useStaticQuery component
- *
- * See: https://www.gatsbyjs.com/docs/how-to/querying-data/use-static-query/
- */
+import React, { useState } from "react";
+import { Link } from "gatsby";
+import "../styles/global.css";
 
-import * as React from "react"
-import { useStaticQuery, graphql } from "gatsby"
+export default function Layout({ children }) {
+  const [darkMode, setDarkMode] = useState(false);
 
-import Header from "./header"
-import "./layout.css"
-
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+    document.body.classList.toggle("dark-mode");
+  };
 
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: `var(--size-content)`,
-          padding: `var(--size-gutter)`,
-        }}
-      >
-        <main>{children}</main>
-        <footer
-          style={{
-            marginTop: `var(--space-5)`,
-            fontSize: `var(--font-sm)`,
-          }}
-        >
-          © {new Date().getFullYear()} &middot; Built with
-          {` `}
-          <a href="https://www.gatsbyjs.com">Gatsby</a>
-        </footer>
-      </div>
-    </>
-  )
-}
+    <div className={`container ${darkMode ? "dark" : ""}`}>
+      {/* Navigation */}
+      <nav className="navbar">
+        <h1 className="logo">Rebecca Monroy</h1>
+        <div className="nav-right">
+          <ul className="nav-links">
+          <li><Link to="#home">Home</Link></li>
+            <li><Link to="#about">About Me</Link></li>
+            <li><Link to="#experience">Experience</Link></li>
+            <li><Link to="#skills">Skills</Link></li>
+            <li><Link to="#certifications">Certifications</Link></li>
+            <li><Link to="#projects">My Projects</Link></li>
+            <li><Link to="#contact">Contact Me</Link></li>
+          </ul>
+          <button onClick={toggleDarkMode} className="dark-mode-toggle">
+            {darkMode ? "☀️ Light" : "🌙 Dark"}
+          </button>
+        </div>
+      </nav>
 
-export default Layout
+      {/* Main Content */}
+      <main>{children}</main>
+
+      {/* Footer */}
+      <footer>
+        <p>© {new Date().getFullYear()} Rebecca Monroy. All rights reserved.</p>
+      </footer>
+
+      {/* Back to Top Button */}
+      <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+        ↑ Top
+      </button>
+    </div>
+  );
+}
